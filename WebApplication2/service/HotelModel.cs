@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.EntityFrameworkCore;
 
-namespace Booking.Data
+namespace Booking.Services
 {
-    public class HotelEntity
+   public class HotelModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

@@ -10,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Booking.Services;
+using Booking.Data;
+
 
 
 namespace Booking.API
@@ -27,6 +30,8 @@ namespace Booking.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<IHotelService, HotelService>();
+            services.AddScoped<IHotelRepository, HotelRepository>();
             services.AddAutoMapper(config =>
             {
               

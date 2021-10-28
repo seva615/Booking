@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Booking.Data
+namespace Booking.API
 {
-    public class HotelEntity
+    public class HotelViewModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
