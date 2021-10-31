@@ -9,6 +9,7 @@ namespace Booking.Services
         public void DeleteHotel(Guid id);
         public void AddHotel(HotelModel hotel);
         public HotelModel GetHotel(Guid id);
-        public void EditHotel(Guid id, HotelModel hotel);
+        public void EditHotel(HotelModel hotel);
+        public IEnumerable<HotelModel> GetHotels();
     }
 }

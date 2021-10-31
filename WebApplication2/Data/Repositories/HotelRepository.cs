@@ -8,7 +8,7 @@ namespace Booking.Data
    public class HotelRepository : IHotelRepository
     {
         DataContext db = new DataContext();
-        public void DeleteEntity(Guid id)
+        public void DeleteHotelEntity(Guid id)
         {
             HotelEntity hotel = db.Hotels.Find(id);
             if (hotel != null)
@@ -16,28 +16,30 @@ namespace Booking.Data
                 db.Hotels.Remove(hotel);
                 db.SaveChanges();
             }
-                 
+                
         }
 
-        public void AddEntity(HotelEntity hotel)
+        public void AddHotelEntity(HotelEntity hotel)
         {
             db.Hotels.Add(hotel);
             db.SaveChanges();
         }
 
-        public void EditEntity(Guid id, HotelEntity hotel)
+        public void EditHotelEntity(HotelEntity hotel)
         {
-            if (id == hotel.Id)
-            {
                 db.Entry(hotel).State = EntityState.Modified;
-                db.SaveChanges();
-            }
+                db.SaveChanges();            
         }
 
-        public HotelEntity GetEntity(Guid id)
+        public HotelEntity GetHotelEntity(Guid id)
         {
             HotelEntity hotel = db.Hotels.Find(id);
             return hotel;
+        }
+
+        public IEnumerable<HotelEntity> GetHotelEntities()
+        {
+            return db.Hotels;
         }
     }
 }

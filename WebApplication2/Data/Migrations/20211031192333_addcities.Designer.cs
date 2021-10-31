@@ -3,15 +3,17 @@ using System;
 using Booking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Booking.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211031192333_addcities")]
+    partial class addcities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,6 +69,9 @@ namespace Booking.Data.Migrations
                     b.Property<string>("Advantage")
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("CityEntityId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("CityId")
                         .HasColumnType("uuid");
 
@@ -75,7 +80,7 @@ namespace Booking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
+                    b.HasIndex("CityEntityId");
 
                     b.ToTable("Hotels");
                 });
@@ -89,13 +94,9 @@ namespace Booking.Data.Migrations
 
             modelBuilder.Entity("Booking.Data.HotelEntity", b =>
                 {
-                    b.HasOne("Booking.Data.CityEntity", "city")
+                    b.HasOne("Booking.Data.CityEntity", null)
                         .WithMany("Hotels")
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("city");
+                        .HasForeignKey("CityEntityId");
                 });
 
             modelBuilder.Entity("Booking.Data.CityEntity", b =>

@@ -12,8 +12,7 @@ using System.Linq;
 using System.Reflection;
 using Booking.Services;
 using Booking.Data;
-
-
+using AutoMapper;
 
 namespace Booking.API
 {
@@ -29,13 +28,20 @@ namespace Booking.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            services.AddMvc();
             services.AddControllers();
             services.AddScoped<IHotelService, HotelService>();
             services.AddScoped<IHotelRepository, HotelRepository>();
-            services.AddAutoMapper(config =>
-            {
-              
-            });
+            services.AddScoped<ICityService, CityService>();
+            services.AddScoped<ICityRepository, CityRepository>();
+            services.AddScoped<IContryService, ContryService>();
+            services.AddScoped<IContryRepository, ContryRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
