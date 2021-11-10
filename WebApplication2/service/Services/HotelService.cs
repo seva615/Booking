@@ -10,11 +10,13 @@ namespace Booking.Services
     public class HotelService : IHotelService
     {
         private readonly IHotelRepository _hotelRepository;
+        private readonly ICityRepository _cityRepository;
         private readonly IMapper _mapper;
 
-        public HotelService(IHotelRepository hotelRepository, IMapper mapper)
+        public HotelService(IHotelRepository hotelRepository, ICityRepository cityRepository, IMapper mapper)
         {
             _hotelRepository = hotelRepository;
+            _cityRepository = cityRepository;
             _mapper = mapper;
         }
         public void DeleteHotel(Guid id)
@@ -24,8 +26,11 @@ namespace Booking.Services
 
         public void AddHotel(HotelModel hotel)
         {
-            var HotelEntity = _mapper.Map<HotelModel, HotelEntity>(hotel);
-            _hotelRepository.AddHotelEntity(HotelEntity);
+            if (_cityRepository.GetCityEntity(hotel.CityId) != null)
+            {
+                var HotelEntity = _mapper.Map<HotelModel, HotelEntity>(hotel);
+                _hotelRepository.AddHotelEntity(HotelEntity);
+            }
         }
 
         public HotelModel GetHotel(Guid id)
@@ -43,9 +48,9 @@ namespace Booking.Services
 
         public IEnumerable<HotelModel> GetHotels()
         {
-          
-            var hotelEntities = _hotelRepository.GetHotelEntities();
-            var HotelModels = _mapper.Map<IEnumerable<HotelModel>>(hotelEntities);
+           
+            var HotelEntities = _hotelRepository.GetHotelEntities();
+            var HotelModels = _mapper.Map<IEnumerable<HotelModel>>(HotelEntities);
             return HotelModels;
         }
     }

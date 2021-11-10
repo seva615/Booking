@@ -10,7 +10,7 @@ namespace Booking.API
         public Guid Id { get; set; }
         public string HotelName { get; set; }
         public string Adress { get; set; }
-        public string Advantage { get; set; }
+        public string Description { get; set; }
         public Guid CityId { get; set; }
         public CityViewModel city { get; set; }
 

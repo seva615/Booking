@@ -10,6 +10,8 @@ namespace Booking.Data
         public DbSet<HotelEntity> Hotels { get; set; }
         public DbSet<ContryEntity> Contries { get; set; }
         public DbSet<CityEntity> Cities { get; set; }
+        public DbSet<RoomEntity> Rooms { get; set; }
+        public DbSet<AdvantageEntity> Advantages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

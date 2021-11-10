@@ -42,6 +42,7 @@ namespace Booking.API
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IContryService, ContryService>();
             services.AddScoped<IContryRepository, ContryRepository>();
+            services.AddScoped<IRoomRepository, RoomRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

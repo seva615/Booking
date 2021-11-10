@@ -3,15 +3,17 @@ using System;
 using Booking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Booking.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20211110153735_roomsAndAdvantages")]
+    partial class roomsAndAdvantages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,9 +28,6 @@ namespace Booking.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("AdvantageName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("AdvantageType")
                         .HasColumnType("text");
 
                     b.Property<Guid?>("RoomEntityId")

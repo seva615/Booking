@@ -9,9 +9,10 @@ namespace Booking.Services
         public Guid Id { get; set; }
         public string HotelName { get; set; }
         public string Adress { get; set; }
-        public string Advantage { get; set; }
+        public string Description { get; set; }
         public Guid CityId { get; set; }
         public CityModel city { get; set; }
+
 
     }
 }
