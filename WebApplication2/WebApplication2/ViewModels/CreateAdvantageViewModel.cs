@@ -5,13 +5,10 @@ using System.Threading.Tasks;
 
 namespace Booking.API
 {
-    public class AdvantageViewModel
+    public class CreateAdvantageViewModel
     {
-        public Guid Id { get; set; }
-
         public string AdvantageName { get; set; }
 
         public string AdvantageType { get; set; }
-                  
     }
 }

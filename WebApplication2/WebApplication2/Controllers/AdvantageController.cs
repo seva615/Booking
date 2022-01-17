@@ -39,11 +39,12 @@ namespace Booking.API
 
         [HttpPost]
         [Route("addAdvantage")]
-        public void AddAdvantage(AdvantageViewModel advantage)
+        public void AddAdvantage(CreateAdvantageViewModel advantage)
         {
-            var AdvantageModel = _mapper.Map<AdvantageViewModel, AdvantageModel>(advantage);
+            var AdvantageModel = _mapper.Map<CreateAdvantageViewModel, AdvantageModel>(advantage);
             _advantageService.AddAdvantage(AdvantageModel);
         }
+
         [HttpPut]
         [Route("editAdvantage")]
         public void EditAdvantage(AdvantageViewModel advantage)

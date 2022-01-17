@@ -24,12 +24,10 @@ namespace Booking.Services
         }
 
         public void AddAdvantage(AdvantageModel advantage)
-        {
-            if (_roomRepository.GetRoomEntity(advantage.RoomId) != null)
-            {
+        {            
                 var AdvantageEntity = _mapper.Map<AdvantageModel, AdvantageEntity>(advantage);
-                _advantageRepository.AddAdvantageEntity(AdvantageEntity);
-            }
+                _advantageRepository.AddAdvantageEntity(AdvantageEntity);                   
+            
         }
 
         public AdvantageModel GetAdvantage(Guid id)

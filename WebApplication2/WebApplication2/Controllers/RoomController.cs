@@ -41,11 +41,12 @@ namespace Booking.API
 
         [HttpPost]
         [Route("addRoom")]
-        public void AddRoom(RoomViewModel room)
+        public void AddRoom(CreateRoomViewModel room)
         {
-            var RoomModel = _mapper.Map<RoomViewModel, RoomModel>(room);
+            var RoomModel = _mapper.Map<CreateRoomViewModel, RoomModel>(room);
             _roomService.AddRoom(RoomModel);
         }
+
         [HttpPut]
         [Route("editRoom")]
         public void EditRoom(RoomViewModel room)

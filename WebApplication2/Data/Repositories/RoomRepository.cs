@@ -7,39 +7,44 @@ namespace Booking.Data
 {
     public class RoomRepository : IRoomRepository
     {
-        DataContext db = new DataContext();
+        private readonly DataContext _db;
+
+        public RoomRepository(DataContext db)
+        {
+            _db = db;
+        }
+
         public void DeleteRoomEntity(Guid id)
         {
-            RoomEntity room = db.Rooms.Find(id);
+            RoomEntity room = _db.Rooms.Find(id);
             if (room != null)
             {
-                db.Rooms.Remove(room);
-                db.SaveChanges();
+                _db.Rooms.Remove(room);
+                _db.SaveChanges();
             }
-
         }
 
         public void AddRoomEntity(RoomEntity room)
         {
-            db.Rooms.Add(room);
-            db.SaveChanges();
+            _db.Rooms.Add(room);
+            _db.SaveChanges();
         }
 
         public void EditRoomEntity(RoomEntity room)
         {
-            db.Entry(room).State = EntityState.Modified;
-            db.SaveChanges();
+            _db.Entry(room).State = EntityState.Modified;
+            _db.SaveChanges();
         }
 
         public RoomEntity GetRoomEntity(Guid id)
         {
-            RoomEntity room = db.Rooms.Find(id);
+            RoomEntity room = _db.Rooms.Find(id);
             return room;
         }
 
         public IEnumerable<RoomEntity> GetRoomEntities()
         {
-            return db.Rooms;
+            return _db.Rooms;
         }
     }
 }

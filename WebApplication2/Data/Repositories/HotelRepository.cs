@@ -7,39 +7,44 @@ namespace Booking.Data
 {
    public class HotelRepository : IHotelRepository
     {
-        DataContext db = new DataContext();
+        private readonly DataContext _db;
+
+        public HotelRepository(DataContext db)
+        {
+            _db = db;
+        }
+
         public void DeleteHotelEntity(Guid id)
         {
-            HotelEntity hotel = db.Hotels.Find(id);
+            HotelEntity hotel = _db.Hotels.Find(id);
             if (hotel != null)
             {
-                db.Hotels.Remove(hotel);
-                db.SaveChanges();
-            }
-                
+                _db.Hotels.Remove(hotel);
+                _db.SaveChanges();
+            }                
         }
 
         public void AddHotelEntity(HotelEntity hotel)
         {
-            db.Hotels.Add(hotel);
-            db.SaveChanges();
+            _db.Hotels.Add(hotel);
+            _db.SaveChanges();
         }
 
         public void EditHotelEntity(HotelEntity hotel)
         {
-                db.Entry(hotel).State = EntityState.Modified;
-                db.SaveChanges();            
+                _db.Entry(hotel).State = EntityState.Modified;
+                _db.SaveChanges();            
         }
 
         public HotelEntity GetHotelEntity(Guid id)
         {
-            HotelEntity hotel = db.Hotels.Find(id);
+            HotelEntity hotel = _db.Hotels.Find(id);
             return hotel;
         }
 
         public IEnumerable<HotelEntity> GetHotelEntities()
         {
-            return db.Hotels;
+            return _db.Hotels;
         }
     }
 }

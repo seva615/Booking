@@ -11,11 +11,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
-
-     
- <ItemGroup>
+	
+  <ItemGroup>
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+  </ItemGroup>
+	
+  <ItemGroup>
     <ProjectReference Include="..\service\Booking.Services.csproj" />
   </ItemGroup>
-
+	
 </Project>

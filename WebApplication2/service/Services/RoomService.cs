@@ -30,6 +30,11 @@ namespace Booking.Services
                 var RoomEntity = _mapper.Map<RoomModel, RoomEntity>(room);
                 _roomRepository.AddRoomEntity(RoomEntity);
             }
+            else
+            {
+                throw new NotFoundException("No hotel found with entered id");
+            }
+            
         }
 
         public RoomModel GetRoom(Guid id)

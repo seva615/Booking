@@ -2,44 +2,52 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Booking.Data
 {
     public class AdvantageRepository : IAdvantageRepository
     {
-        DataContext db = new DataContext();
+        
+        private readonly DataContext _db;
+    
+        public AdvantageRepository(DataContext db)
+        {
+            _db = db;
+        }
+
         public void DeleteAdvantageEntity(Guid id)
         {
-            AdvantageEntity advantage = db.Advantages.Find(id);
+            AdvantageEntity advantage = _db.Advantages.Find(id);
             if (advantage != null)
             {
-                db.Advantages.Remove(advantage);
-                db.SaveChanges();
+                _db.Advantages.Remove(advantage);
+                _db.SaveChanges();
             }
 
         }
 
         public void AddAdvantageEntity(AdvantageEntity advantage)
         {
-            db.Advantages.Add(advantage);
-            db.SaveChanges();
+            _db.Advantages.Add(advantage);
+            _db.SaveChanges();
         }
 
         public void EditAdvantageEntity(AdvantageEntity advantage)
         {
-            db.Entry(advantage).State = EntityState.Modified;
-            db.SaveChanges();
+            _db.Entry(advantage).State = EntityState.Modified;
+            _db.SaveChanges();
         }
 
         public AdvantageEntity GetAdvantageEntity(Guid id)
         {
-           AdvantageEntity advantage = db.Advantages.Find(id);
+            AdvantageEntity advantage = _db.Advantages.Find(id);
             return advantage;
         }
 
         public IEnumerable<AdvantageEntity> GetAdvantageEntities()
         {
-            return db.Advantages;
+            return _db.Advantages;
         }
     }
 }

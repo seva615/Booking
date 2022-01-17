@@ -31,6 +31,11 @@ namespace Booking.Services
                 var HotelEntity = _mapper.Map<HotelModel, HotelEntity>(hotel);
                 _hotelRepository.AddHotelEntity(HotelEntity);
             }
+            else
+            {
+                throw new NotFoundException("No city found with entered id");
+            }
+            
         }
 
         public HotelModel GetHotel(Guid id)

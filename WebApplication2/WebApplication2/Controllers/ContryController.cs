@@ -42,11 +42,12 @@ namespace Booking.API
 
         [HttpPost]
         [Route("addContry")]
-        public void AddContry(ContryViewModel contry)
+        public void AddContry(CreateContryViewModel contry)
         {
-            var ContryModel = _mapper.Map<ContryViewModel, ContryModel>(contry);
+            var ContryModel = _mapper.Map<CreateContryViewModel, ContryModel>(contry);
             _contryService.AddContry(ContryModel);
         }
+
         [HttpPut]
         [Route("editContry")]
         public void EditContry(ContryViewModel contry)

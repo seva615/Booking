@@ -5,17 +5,10 @@ using System.Threading.Tasks;
 
 namespace Booking.API
 {
-    public class CityViewModel
+    public class CreateCityViewModel
     {
-        public Guid Id { get; set; }
-
         public string CityName { get; set; }
 
         public Guid ContryId { get; set; }
-
-        public ContryViewModel Contry { get; set; }
-
-        public IEnumerable<HotelViewModel> Hotels { get; set; }
-
     }
 }

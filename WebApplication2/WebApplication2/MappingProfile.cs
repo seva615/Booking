@@ -32,10 +32,16 @@ namespace Booking.API
             CreateMap<AdvantageModel, AdvantageViewModel>();
             CreateMap<AdvantageModel, AdvantageEntity>();
             CreateMap<AdvantageEntity, AdvantageModel>();
-
-
-
-        }
-         
+            CreateMap<CreateContryViewModel, ContryModel>();
+            CreateMap<ContryModel, CreateContryViewModel>();
+            CreateMap<CreateCityViewModel, CityModel>();
+            CreateMap<CityModel, CreateCityViewModel>();
+            CreateMap<CreateHotelViewModel, HotelModel>();
+            CreateMap<HotelModel, CreateHotelViewModel>();
+            CreateMap<CreateRoomViewModel, RoomModel>();
+            CreateMap<RoomModel, CreateRoomViewModel>();
+            CreateMap<CreateAdvantageViewModel, AdvantageModel>();
+            CreateMap<AdvantageModel, CreateAdvantageViewModel>();
+        }         
     }
 }

@@ -30,6 +30,11 @@ namespace Booking.Services
                 var CityEntity = _mapper.Map<CityModel, CityEntity>(city);
                 _cityRepository.AddCityEntity(CityEntity);
             }
+            else
+            {
+                throw new NotFoundException("No contry found with entered id");
+            }
+           
         }
 
         public CityModel GetCity(Guid id)

@@ -13,15 +13,19 @@ using System.Reflection;
 using Booking.Services;
 using Booking.Data;
 using AutoMapper;
+using Swashbuckle;
+using Microsoft.EntityFrameworkCore;
 
 namespace Booking.API
 {
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
+        }      
+
 
         public IConfiguration Configuration { get; }
 
@@ -33,6 +37,8 @@ namespace Booking.API
                 mc.AddProfile(new MappingProfile());
             });
             IMapper mapper = mapperConfig.CreateMapper();
+            
+            services.AddDbContext<DataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSingleton(mapper);
             services.AddMvc();
             services.AddControllers();
@@ -43,6 +49,7 @@ namespace Booking.API
             services.AddScoped<IContryService, ContryService>();
             services.AddScoped<IContryRepository, ContryRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +58,8 @@ namespace Booking.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();

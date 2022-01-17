@@ -7,8 +7,13 @@ namespace Booking.Data
     public class CityEntity
     {
         public Guid Id { get; set; }
+
         public string CityName { get; set; }
+
         public Guid ContryId { get; set; }
+
+        public ContryEntity Contry { get; set; }
+
         public IEnumerable<HotelEntity> Hotels { get; set; }
     }
 }

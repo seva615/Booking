@@ -7,39 +7,44 @@ namespace Booking.Data
 {
     public class CityRepository : ICityRepository
     {
-        DataContext db = new DataContext();
+        private readonly DataContext _db;
+
+        public CityRepository(DataContext db)
+        {
+            _db = db;
+        }
+
         public void DeleteCityEntity(Guid id)
         {
-            CityEntity city = db.Cities.Find(id);
+            CityEntity city = _db.Cities.Find(id);
             if (city != null)
             {
-                db.Cities.Remove(city);
-                db.SaveChanges();
+                _db.Cities.Remove(city);
+                _db.SaveChanges();
             }
-
         }
 
         public void AddCityEntity(CityEntity city)
         {
-            db.Cities.Add(city);
-            db.SaveChanges();
+            _db.Cities.Add(city);
+            _db.SaveChanges();
         }
 
         public void EditCityEntity(CityEntity city)
         {
-            db.Entry(city).State = EntityState.Modified;
-            db.SaveChanges();
+            _db.Entry(city).State = EntityState.Modified;
+            _db.SaveChanges();
         }
 
         public CityEntity GetCityEntity(Guid id)
         {
-            CityEntity city = db.Cities.Find(id);
+            CityEntity city = _db.Cities.Find(id);
             return city;
         }
 
         public IEnumerable<CityEntity> GetCityEntities()
         {
-            return db.Cities;
+            return _db.Cities;
         }
     }
 }

@@ -42,11 +42,12 @@ namespace Booking.API
 
         [HttpPost]
         [Route("addCity")]
-        public void AddCity(CityViewModel city)
+        public void AddCity(CreateCityViewModel city)
         {
-            var CityModel = _mapper.Map<CityViewModel, CityModel>(city);
+            var CityModel = _mapper.Map<CreateCityViewModel, CityModel>(city);
             _cityService.AddCity(CityModel);
         }
+
         [HttpPut]
         [Route("editCity")]
         public void EditCity(CityViewModel city)

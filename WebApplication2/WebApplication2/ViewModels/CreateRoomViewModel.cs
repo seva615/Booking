@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Booking.Data
+namespace Booking.API
 {
-    public class RoomEntity
+    public class CreateRoomViewModel
     {
-        public Guid Id { get; set; }
-
         public Guid HotelId { get; set; }
 
         public string RoomType { get; set; }
@@ -18,8 +17,6 @@ namespace Booking.Data
 
         public int RoomSpace { get; set; }
 
-        public IEnumerable<AdvantageEntity> AdvantageId { get; set; }
-
-        public IEnumerable<AdvantageEntity> Advantages { get; set; }
+        public IEnumerable<AdvantageViewModel> AdvantageId { get; set; }
     }
 }

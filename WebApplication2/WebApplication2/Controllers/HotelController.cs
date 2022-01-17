@@ -48,11 +48,12 @@ namespace Booking.API
             var HotelModel = _mapper.Map<HotelViewModel, HotelModel>(hotel);
             _hotelService.AddHotel(HotelModel);
         }
+
         [HttpPut]
         [Route("editHotel")]
-        public void EditHotel(HotelViewModel hotel)
+        public void EditHotel(CreateHotelViewModel hotel)
         {
-            var HotelModel = _mapper.Map<HotelViewModel, HotelModel>(hotel);
+            var HotelModel = _mapper.Map<CreateHotelViewModel, HotelModel>(hotel);
             _hotelService.EditHotel(HotelModel);
         }
 
