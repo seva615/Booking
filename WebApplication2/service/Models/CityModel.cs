@@ -10,9 +10,9 @@ namespace Booking.Services
 
         public string CityName { get; set; }
 
-        public Guid ContryId { get; set; }
+        public Guid CountryId { get; set; }
 
-        public ContryModel Contry { get; set; }
+        public CountryModel Country { get; set; }
 
         public IEnumerable<HotelModel> Hotels { get; set; }
     }

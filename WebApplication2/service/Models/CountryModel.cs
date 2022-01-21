@@ -4,11 +4,11 @@ using System.Text;
 
 namespace Booking.Services
 {
-   public class ContryModel
+   public class CountryModel
     {
         public Guid Id { get; set; }
 
-        public string ContryName { get; set; }
+        public string CountryName { get; set; }
 
         public IEnumerable<CityModel> Cities { get; set; }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,10 +9,13 @@ namespace Booking.Data
     public class CityRepository : ICityRepository
     {
         private readonly DataContext _db;
+        private IQueryable<CityEntity> CollectionWithIncludes { get; set; }
 
         public CityRepository(DataContext db)
         {
             _db = db;
+            CollectionWithIncludes = db.Cities
+                .Include(x => x.Hotels);
         }
 
         public void DeleteCityEntity(Guid id)
@@ -44,7 +48,7 @@ namespace Booking.Data
 
         public IEnumerable<CityEntity> GetCityEntities()
         {
-            return _db.Cities;
+            return CollectionWithIncludes.ToList(); 
         }
     }
 }

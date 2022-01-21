@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
+
 namespace Booking.Data
 {
     public class DataContext : DbContext
@@ -16,7 +17,7 @@ namespace Booking.Data
 
         public DbSet<HotelEntity> Hotels { get; set; }
 
-        public DbSet<ContryEntity> Contries { get; set; }
+        public DbSet<CountryEntity> Countries { get; set; }
 
         public DbSet<CityEntity> Cities { get; set; }
 
@@ -28,9 +29,10 @@ namespace Booking.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ContryEntity>().HasMany(e => e.Cities).WithOne(e => e.Contry);
-            //modelBuilder.Entity<CityEntity>().HasMany(e => e.Hotels).WithOne().HasForeignKey(e => e.CityId);
-            //modelBuilder.Entity<HotelEntity>().HasMany(e => e.Rooms).WithOne().HasForeignKey(e => e.HotelId);
+            modelBuilder.Entity<CountryEntity>().HasMany(e => e.Cities).WithOne(e => e.Country);
+            modelBuilder.Entity<CityEntity>().HasOne(e => e.Country).WithMany(e => e.Cities);
+            modelBuilder.Entity<CityEntity>().HasMany(e => e.Hotels).WithOne(e => e.City);
+            modelBuilder.Entity<HotelEntity>().HasOne(e => e.City).WithMany(e => e.Hotels);
         }
     }
 }

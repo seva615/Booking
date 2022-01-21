@@ -9,6 +9,6 @@ namespace Booking.API
     {
         public string CityName { get; set; }
 
-        public Guid ContryId { get; set; }
+        public Guid CountryId { get; set; }
     }
 }

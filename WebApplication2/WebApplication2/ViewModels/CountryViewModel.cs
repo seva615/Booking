@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Booking.API
 {
-    public class ContryViewModel
+    public class CountryViewModel
     {
         public Guid Id { get; set; }
 
-        public string ContryName { get; set; }
+        public string CountryName { get; set; }
 
         public IEnumerable<CityViewModel> Cities { get; set; }
     }

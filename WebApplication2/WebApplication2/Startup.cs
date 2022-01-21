@@ -45,11 +45,13 @@ namespace Booking.API
             services.AddScoped<IHotelService, HotelService>();
             services.AddScoped<IHotelRepository, HotelRepository>();
             services.AddScoped<ICityService, CityService>();
-            services.AddScoped<ICityRepository, CityRepository>();
-            services.AddScoped<IContryService, ContryService>();
-            services.AddScoped<IContryRepository, ContryRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();           
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddSwaggerGen();
+            services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Booking.API
 {
-    public class CreateContryViewModel
+    public class CreateCountryViewModel
     {
-        public string ContryName { get; set; }
+        public string CountryName { get; set; }
     }
 }

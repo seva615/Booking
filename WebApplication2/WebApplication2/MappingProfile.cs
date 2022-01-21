@@ -20,10 +20,10 @@ namespace Booking.API
             CreateMap<CityModel, CityViewModel>();
             CreateMap<CityModel, CityEntity>();
             CreateMap<CityEntity, CityModel>();
-            CreateMap<ContryViewModel, ContryModel>();
-            CreateMap<ContryModel, ContryViewModel>();
-            CreateMap<ContryModel, ContryEntity>();
-            CreateMap<ContryEntity, ContryModel>();
+            CreateMap<CountryViewModel, CountryModel>();
+            CreateMap<CountryModel, CountryViewModel>();
+            CreateMap<CountryModel, CountryEntity>();
+            CreateMap<CountryEntity, CountryModel>();
             CreateMap<RoomViewModel, RoomModel>();
             CreateMap<RoomModel, RoomViewModel>();
             CreateMap<RoomModel, RoomEntity>();
@@ -32,8 +32,8 @@ namespace Booking.API
             CreateMap<AdvantageModel, AdvantageViewModel>();
             CreateMap<AdvantageModel, AdvantageEntity>();
             CreateMap<AdvantageEntity, AdvantageModel>();
-            CreateMap<CreateContryViewModel, ContryModel>();
-            CreateMap<ContryModel, CreateContryViewModel>();
+            CreateMap<CreateCountryViewModel, CountryModel>();
+            CreateMap<CountryModel, CreateCountryViewModel>();
             CreateMap<CreateCityViewModel, CityModel>();
             CreateMap<CityModel, CreateCityViewModel>();
             CreateMap<CreateHotelViewModel, HotelModel>();

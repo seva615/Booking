@@ -9,10 +9,10 @@ namespace Booking.Services
     public class CityService : ICityService
     {
         private readonly ICityRepository _cityRepository;
-        private readonly IContryRepository _contryRepository;
+        private readonly ICountryRepository _contryRepository;
         private readonly IMapper _mapper;
 
-        public CityService(ICityRepository cityRepository, IContryRepository contryRepository, IMapper mapper)
+        public CityService(ICityRepository cityRepository, ICountryRepository contryRepository, IMapper mapper)
         {
             _contryRepository = contryRepository;
             _cityRepository = cityRepository;
@@ -26,7 +26,7 @@ namespace Booking.Services
         public void AddCity(CityModel city)
         {
              
-            if (_contryRepository.GetContryEntity(city.ContryId) != null) {
+            if (_contryRepository.GetCountryEntity(city.CountryId) != null) {
                 var CityEntity = _mapper.Map<CityModel, CityEntity>(city);
                 _cityRepository.AddCityEntity(CityEntity);
             }
