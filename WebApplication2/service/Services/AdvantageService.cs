@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
 using Booking.Data;
 
@@ -8,44 +9,42 @@ namespace Booking.Services
 {
     public class AdvantageService : IAdvantageService
     {
-        private readonly IRoomRepository _roomRepository;
         private readonly IAdvantageRepository _advantageRepository;
         private readonly IMapper _mapper;
 
-        public AdvantageService(IRoomRepository roomRepository, IAdvantageRepository advantageRepository, IMapper mapper)
+        public AdvantageService(IAdvantageRepository advantageRepository, IMapper mapper)
         {
             _advantageRepository = advantageRepository;
-            _roomRepository = roomRepository;
             _mapper = mapper;
         }
-        public void DeleteAdvantage(Guid id)
+        public async Task DeleteAdvantage(Guid id)
         {
-            _advantageRepository.DeleteAdvantageEntity(id);
+           await _advantageRepository.Delete(id);
         }
 
-        public void AddAdvantage(AdvantageModel advantage)
+        public async Task AddAdvantage(AdvantageModel advantage)
         {            
                 var AdvantageEntity = _mapper.Map<AdvantageModel, AdvantageEntity>(advantage);
-                _advantageRepository.AddAdvantageEntity(AdvantageEntity);                   
+                await _advantageRepository.Add(AdvantageEntity);                   
             
         }
 
-        public AdvantageModel GetAdvantage(Guid id)
+        public async Task<AdvantageModel> GetAdvantage(Guid id)
         {
-            var AdvantageEntity = _advantageRepository.GetAdvantageEntity(id);
+            var AdvantageEntity = await _advantageRepository.GetById(id);
             var AdvantageModel = _mapper.Map<AdvantageEntity, AdvantageModel>(AdvantageEntity);
             return AdvantageModel;
         }
 
-        public void EditAdvantage(AdvantageModel advantage)
+        public async Task EditAdvantage(AdvantageModel advantage)
         {
             var AdvantageEntity = _mapper.Map<AdvantageModel, AdvantageEntity>(advantage);
-            _advantageRepository.EditAdvantageEntity(AdvantageEntity);
+            await _advantageRepository.Edit(AdvantageEntity);
         }
 
-        public IEnumerable<AdvantageModel> GetAdvantages()
+        public async Task<IEnumerable<AdvantageModel>> GetAdvantages()
         {
-            var AdvantageEntities = _advantageRepository.GetAdvantageEntities();
+            var AdvantageEntities = await _advantageRepository.GetAll();
             var AdvantageModels = _mapper.Map<IEnumerable<AdvantageModel>>(AdvantageEntities);
             return AdvantageModels;
         }

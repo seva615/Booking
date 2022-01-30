@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Booking.Services
 {
     public interface IAdvantageService
     {
-        public void DeleteAdvantage(Guid id);
+        public Task DeleteAdvantage(Guid id);
 
-        public void AddAdvantage(AdvantageModel advantage);
+        public Task AddAdvantage(AdvantageModel advantage);
 
-        public AdvantageModel GetAdvantage(Guid id);
+        public Task<AdvantageModel> GetAdvantage(Guid id);
 
-        public void EditAdvantage(AdvantageModel advantage);
+        public Task EditAdvantage(AdvantageModel advantage);
 
-        public IEnumerable<AdvantageModel> GetAdvantages();
+        public Task<IEnumerable<AdvantageModel>> GetAdvantages();
     }
 }
 

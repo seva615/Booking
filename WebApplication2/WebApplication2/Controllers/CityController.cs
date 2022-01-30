@@ -24,43 +24,43 @@ namespace Booking.API
 
         [HttpGet]
         [Route("getCities")]
-        public IEnumerable<CityViewModel> GetCities()
+        public async Task<IEnumerable<CityViewModel>> GetCities()
         {
-            var CityModels = _cityService.GetCities();
+            var CityModels = await _cityService.GetCities();
             var CityViewModels = _mapper.Map<IEnumerable<CityViewModel>>(CityModels);
             return CityViewModels;
         }
 
         [HttpGet]
         [Route("getCity")]
-        public CityViewModel GetCity(Guid id)
+        public async Task<CityViewModel> GetCity(Guid id)
         {
-            var CityModel = _cityService.GetCity(id);
+            var CityModel = await _cityService.GetCity(id);
             var CityViewModel = _mapper.Map<CityModel, CityViewModel>(CityModel);
             return CityViewModel;
         }
 
         [HttpPost]
         [Route("addCity")]
-        public void AddCity(CreateCityViewModel city)
+        public async Task AddCity(CreateCityViewModel city)
         {
             var CityModel = _mapper.Map<CreateCityViewModel, CityModel>(city);
-            _cityService.AddCity(CityModel);
+            await _cityService.AddCity(CityModel);
         }
 
         [HttpPut]
         [Route("editCity")]
-        public void EditCity(CityViewModel city)
+        public async Task EditCity(CityViewModel city)
         {
             var CityModel = _mapper.Map<CityViewModel, CityModel>(city);
-            _cityService.EditCity(CityModel);
+            await _cityService.EditCity(CityModel);
         }
 
         [HttpDelete]
         [Route("deleteCity")]
-        public void DeleteCity(Guid id)
+        public async Task DeleteCity(Guid id)
         {
-            _cityService.DeleteCity(id);
+            await _cityService.DeleteCity(id);
         }
     }
 }

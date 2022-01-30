@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Booking.Data;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Booking.Services
 {
@@ -18,42 +19,40 @@ namespace Booking.Services
             _cityRepository = cityRepository;
             _mapper = mapper;
         }
-        public void DeleteCity(Guid id)
+        public async Task DeleteCity(Guid id)
         {
-            _cityRepository.DeleteCityEntity(id);
+            await _cityRepository.Delete(id);
         }
 
-        public void AddCity(CityModel city)
+        public async Task AddCity(CityModel city)
         {
-             
-            if (_contryRepository.GetCountryEntity(city.CountryId) != null) {
+            if (await _contryRepository.GetById(city.CountryId) != null) {
                 var CityEntity = _mapper.Map<CityModel, CityEntity>(city);
-                _cityRepository.AddCityEntity(CityEntity);
+                await _cityRepository.Add(CityEntity);
             }
             else
             {
                 throw new NotFoundException("No contry found with entered id");
             }
-           
         }
 
-        public CityModel GetCity(Guid id)
+        public async Task<CityModel> GetCity(Guid id)
         {
-            var CityEntity = _cityRepository.GetCityEntity(id);
+            var CityEntity = await _cityRepository.GetById(id);
             var CityModel = _mapper.Map<CityEntity, CityModel>(CityEntity);
             return CityModel;
         }
 
-        public void EditCity(CityModel city)
+        public async Task EditCity(CityModel city)
         {
             var CityEntity = _mapper.Map<CityModel, CityEntity>(city);
-            _cityRepository.EditCityEntity(CityEntity);
+            await _cityRepository.Edit(CityEntity);
         }
 
-        public IEnumerable<CityModel> GetCities()
+        public async Task<IEnumerable<CityModel>> GetCities()
         {
 
-            var CityEntities = _cityRepository.GetCityEntities();
+            var CityEntities = await _cityRepository.GetAll();
             var CityModels = _mapper.Map<IEnumerable<CityModel>>(CityEntities);
             return CityModels;
         }

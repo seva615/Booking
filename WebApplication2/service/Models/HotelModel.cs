@@ -16,7 +16,7 @@ namespace Booking.Services
 
         public Guid CityId { get; set; }
 
-        public CityModel city { get; set; }
+        public CityModel City { get; set; }
 
         public IEnumerable<RoomModel> Rooms { get; set; }
     }

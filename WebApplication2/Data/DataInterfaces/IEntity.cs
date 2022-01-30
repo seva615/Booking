@@ -4,7 +4,8 @@ using System.Text;
 
 namespace Booking.Data.DataInterfaces
 {
-    interface IEntity
+    public interface IEntity
     {
+        public Guid Id { get; set; }
     }
 }

@@ -1,47 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using Booking.Data.DataInterfaces;
+using System.Threading.Tasks;
 
 namespace Booking.Data
 {
-    public class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public abstract class EFGenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class , IEntity
     {
-        internal DataContext _context;
-        internal DbSet<TEntity> _dbSet;
+        private readonly DataContext _context;
+        protected Microsoft.EntityFrameworkCore.DbSet<TEntity> _dbSet;
+
+        protected IQueryable<TEntity> CollectionWithIncludes { get; set; }
 
         public EFGenericRepository(DataContext context)
         {
             _context = context;
-           _dbSet = context.Set<TEntity>();
+            _dbSet = context.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public async Task<IEnumerable<TEntity>> GetAll()
         {
-            return _dbSet.AsNoTracking().ToList();
+            return await CollectionWithIncludes.ToListAsync();
+        }
+        
+        public async Task<TEntity> GetById(Guid id)
+        {
+            return await CollectionWithIncludes.FirstOrDefaultAsync(entity => id == entity.Id);
         }
 
-        public TEntity GetById(int id)
+        public async Task<TEntity> GetByName(string name)
         {
-            return _dbSet.Find(id);
+            return await CollectionWithIncludes.FirstOrDefaultAsync(entity => name == entity);
         }
 
-        public void Add(TEntity item)
+        public async Task Add(TEntity item)
         {
-            _dbSet.Add(item);
-            _context.SaveChanges();
+           await _dbSet.AddAsync(item);
+           await _context.SaveChangesAsync();
         }
-        public void Edit(TEntity item)
+        public async Task Edit(TEntity item)
         {
-            _dbSet.Attach(item);
-            _context.Entry(item).State = (Microsoft.EntityFrameworkCore.EntityState)EntityState.Modified;
-            _context.SaveChanges();
+             _dbSet.Attach(item);
+             _context.Entry(item).State = (Microsoft.EntityFrameworkCore.EntityState)EntityState.Modified;
+            await _context.SaveChangesAsync();
         }
-        public void Delete(TEntity item)    
+        public async Task Delete(Guid id)    
         {
-            _dbSet.Remove(item);
-            _context.SaveChanges();
+            var entity = await _dbSet.FindAsync(id);
+            _dbSet.Remove(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }

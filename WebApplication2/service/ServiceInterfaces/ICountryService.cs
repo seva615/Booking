@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Booking.Services
 {
    public interface ICountryService
     {
-        public void DeleteCountry(Guid id);
+        public Task DeleteCountry(Guid id);
 
-        public void AddCountry(CountryModel contry);
+        public Task AddCountry(CountryModel contry);
 
-        public CountryModel GetCountry(Guid id);
+        public Task<CountryModel> GetCountry(Guid id);
 
-        public void EditCountry(CountryModel contry);
+        public Task EditCountry(CountryModel contry);
 
-        public IEnumerable<CountryModel> GetCountries();
+        public Task<IEnumerable<CountryModel>> GetCountries();
     }
 }

@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Booking.Services
 {
     public interface ICityService
     {
-        public void DeleteCity(Guid id);
+        public Task DeleteCity(Guid id);
 
-        public void AddCity(CityModel city);
+        public Task AddCity(CityModel city);
 
-        public CityModel GetCity(Guid id);
+        public Task<CityModel> GetCity(Guid id);
 
-        public void EditCity(CityModel city);
+        public Task EditCity(CityModel city);
 
-        public IEnumerable<CityModel> GetCities();
+        public Task<IEnumerable<CityModel>> GetCities();
     }
 }

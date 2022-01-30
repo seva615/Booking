@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Booking.Data;
 using AutoMapper;
+using System.Threading.Tasks;
 
 namespace Booking.Services
 {
@@ -16,33 +17,33 @@ namespace Booking.Services
             _countryRepository = countryRepository;
             _mapper = mapper;
         }
-        public void DeleteCountry(Guid id)
+        public async Task DeleteCountry(Guid id)
         {
-            _countryRepository.DeleteCountryEntity(id);
+            await _countryRepository.Delete(id);
         }
 
-        public void AddCountry(CountryModel country)
+        public async Task AddCountry(CountryModel country)
         {
             var CountryEntity = _mapper.Map<CountryModel, CountryEntity>(country);
-            _countryRepository.AddCountryEntity(CountryEntity);
+            await _countryRepository.Add(CountryEntity);
         }
 
-        public CountryModel GetCountry(Guid id)
+        public async Task<CountryModel> GetCountry(Guid id)
         {
-            var CountryEntity = _countryRepository.GetCountryEntity(id);
+            var CountryEntity = await _countryRepository.GetById(id);
             var CountryModel = _mapper.Map<CountryEntity, CountryModel>(CountryEntity);
             return CountryModel;
         }
 
-        public void EditCountry(CountryModel country)
+        public async Task EditCountry(CountryModel country)
         {
             var CountryEntity = _mapper.Map<CountryModel, CountryEntity>(country);
-            _countryRepository.EditCountryEntity(CountryEntity);
+            await _countryRepository.Edit(CountryEntity);
         }
 
-        public IEnumerable<CountryModel> GetCountries()
+        public async Task<IEnumerable<CountryModel>> GetCountries()
         {
-            var CountryEntities = _countryRepository.GetCountryEntities();
+            var CountryEntities = await _countryRepository.GetAll();
             var CountryModels = _mapper.Map<IEnumerable<CountryModel>>(CountryEntities);
             return CountryModels;
         }

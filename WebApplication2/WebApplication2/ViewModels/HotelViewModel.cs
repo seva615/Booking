@@ -18,5 +18,7 @@ namespace Booking.API
         public Guid CityId { get; set; }
 
         public CityViewModel city { get; set; }
+        
+        public IEnumerable<RoomViewModel> Rooms { get; set; }
     }
 }

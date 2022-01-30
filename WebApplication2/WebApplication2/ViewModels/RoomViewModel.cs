@@ -16,11 +16,9 @@ namespace Booking.API
         public int RoomNumber { get; set; }
 
         public int Price { get; set; }
+        
+        public  int NumberOfPerson { get; set; }
 
         public int RoomSpace { get; set; }
-
-        public IEnumerable<AdvantageViewModel> AdvantageId { get; set; }
-
-        public IEnumerable<AdvantageViewModel> Advantages { get; set; }
     }
 }

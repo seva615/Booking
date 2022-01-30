@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Booking.Services;
 using AutoMapper;
-
+using System.Threading.Tasks;
 
 namespace Booking.API
 {
@@ -25,36 +25,36 @@ namespace Booking.API
 
         [HttpGet]
         [Route("getHotels")]
-        public IEnumerable<HotelViewModel> GetHotels()
+        public async Task<IEnumerable<HotelViewModel>> GetHotels()
         {
-            var HotelModels = _hotelService.GetHotels();
+            var HotelModels = await _hotelService.GetHotels();
             var HotelViewModels = _mapper.Map<IEnumerable<HotelViewModel>>(HotelModels);
            return HotelViewModels;
         }
 
         [HttpGet]
         [Route("getHotel")]
-        public HotelViewModel GetHotel(Guid id)
+        public async Task<HotelViewModel> GetHotel(Guid id)
         {
-            var HotelModel = _hotelService.GetHotel(id);
+            var HotelModel = await _hotelService.GetHotel(id);
             var HotelViewModel = _mapper.Map<HotelModel, HotelViewModel>(HotelModel);
             return HotelViewModel;
         }
 
         [HttpPost]
         [Route("addHotel")]
-        public void AddHotel(CreateHotelViewModel hotel)
+        public async Task AddHotel(CreateHotelViewModel hotel)
         {
             var HotelModel = _mapper.Map<CreateHotelViewModel, HotelModel>(hotel);
-            _hotelService.AddHotel(HotelModel);
+            await _hotelService.AddHotel(HotelModel);
         }
 
         [HttpPut]
         [Route("editHotel")]
-        public void EditHotel(HotelViewModel hotel)
+        public async Task EditHotel(HotelViewModel hotel)
         {
             var HotelModel = _mapper.Map<HotelViewModel, HotelModel>(hotel);
-            _hotelService.EditHotel(HotelModel);
+            await _hotelService.EditHotel(HotelModel);
         }
 
         [HttpDelete]

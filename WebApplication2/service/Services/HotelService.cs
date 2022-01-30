@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Booking.Data;
 using AutoMapper;
-
+using System.Threading.Tasks;
 
 namespace Booking.Services
 {
@@ -19,42 +19,40 @@ namespace Booking.Services
             _cityRepository = cityRepository;
             _mapper = mapper;
         }
-        public void DeleteHotel(Guid id)
+        public async Task DeleteHotel(Guid id)
         {
-            _hotelRepository.DeleteHotelEntity(id);  
+            await _hotelRepository.Delete(id);  
         }
 
-        public void AddHotel(HotelModel hotel)
+        public async Task AddHotel(HotelModel hotel)
         {
-            if (_cityRepository.GetCityEntity(hotel.CityId) != null)
+            if (_cityRepository.GetById(hotel.CityId) != null)
             {
                 var HotelEntity = _mapper.Map<HotelModel, HotelEntity>(hotel);
-                _hotelRepository.AddHotelEntity(HotelEntity);
+                await _hotelRepository.Add(HotelEntity);
             }
             else
             {
                 throw new NotFoundException("No city found with entered id");
             }
-            
         }
 
-        public HotelModel GetHotel(Guid id)
+        public async Task<HotelModel> GetHotel(Guid id)
         {
-            var HotelEntity = _hotelRepository.GetHotelEntity(id);
+            var HotelEntity = await _hotelRepository.GetById(id);
             var HotelModel = _mapper.Map<HotelEntity, HotelModel>(HotelEntity);
             return HotelModel;
         }
 
-        public void EditHotel(HotelModel hotel)
+        public async Task EditHotel(HotelModel hotel)
         {
             var HotelEntity = _mapper.Map<HotelModel, HotelEntity>(hotel);
-               _hotelRepository.EditHotelEntity(HotelEntity);            
+            await _hotelRepository.Edit(HotelEntity);            
         }
 
-        public IEnumerable<HotelModel> GetHotels()
-        {
-           
-            var HotelEntities = _hotelRepository.GetHotelEntities();
+        public async Task<IEnumerable<HotelModel>> GetHotels()
+        {           
+            var HotelEntities = await _hotelRepository.GetAll();
             var HotelModels = _mapper.Map<IEnumerable<HotelModel>>(HotelEntities);
             return HotelModels;
         }

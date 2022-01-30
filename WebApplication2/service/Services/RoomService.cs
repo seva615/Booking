@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
 using Booking.Data;
 
@@ -18,17 +19,17 @@ namespace Booking.Services
             _roomRepository = roomRepository;
             _mapper = mapper;
         }
-        public void DeleteRoom(Guid id)
+        public async Task DeleteRoom(Guid id)
         {
-            _roomRepository.DeleteRoomEntity(id);
+            await _roomRepository.Delete(id);
         }
 
-        public void AddRoom(RoomModel room)
+        public async Task AddRoom(RoomModel room)
         {
-            if (_hotelRepository.GetHotelEntity(room.HotelId) != null)
+            if ( await _hotelRepository.GetById(room.HotelId) != null)
             {
                 var RoomEntity = _mapper.Map<RoomModel, RoomEntity>(room);
-                _roomRepository.AddRoomEntity(RoomEntity);
+                await _roomRepository.Add(RoomEntity);
             }
             else
             {
@@ -37,22 +38,22 @@ namespace Booking.Services
             
         }
 
-        public RoomModel GetRoom(Guid id)
+        public async Task<RoomModel> GetRoom(Guid id)
         {
-            var RoomEntity = _roomRepository.GetRoomEntity(id);
+            var RoomEntity = await _roomRepository.GetById(id);
             var RoomModel = _mapper.Map<RoomEntity, RoomModel>(RoomEntity);
             return RoomModel;
         }
 
-        public void EditRoom(RoomModel room)
+        public async Task EditRoom(RoomModel room)
         {
             var RoomEntity = _mapper.Map<RoomModel, RoomEntity>(room);
-            _roomRepository.EditRoomEntity(RoomEntity);
+            await _roomRepository.Edit(RoomEntity);
         }
 
-        public IEnumerable<RoomModel> GetRooms()
+        public async Task<IEnumerable<RoomModel>> GetRooms()
         {
-            var RoomEntities = _roomRepository.GetRoomEntities();
+            var RoomEntities = await _roomRepository.GetAll();
             var RoomModels = _mapper.Map<IEnumerable<RoomModel>>(RoomEntities);
             return RoomModels;
         }

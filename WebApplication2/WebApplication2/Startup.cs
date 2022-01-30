@@ -13,8 +13,10 @@ using System.Reflection;
 using Booking.Services;
 using Booking.Data;
 using AutoMapper;
+using Booking.Data.DataInterfaces;
 using Swashbuckle;
 using Microsoft.EntityFrameworkCore;
+using AdvantageNavigationEntity = Booking.Data.Entities.AdvantageNavigationEntity;
 
 namespace Booking.API
 {
@@ -49,9 +51,13 @@ namespace Booking.API
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICountryRepository, CountryRepository>();
             services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IRoomService, RoomService>();
+            services.AddScoped<IAdvantageRepository, AdvantageRepository>();
+            services.AddScoped<IAdvantageService, AdvantageService>();
+            services.AddScoped<IAdvantageNavigationRepository, AdvantageNavigationRepository>();
+            services.AddScoped<IAdvantageNavigationService, AdvantageNavigationService>();
             services.AddSwaggerGen();
             services.AddControllersWithViews().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

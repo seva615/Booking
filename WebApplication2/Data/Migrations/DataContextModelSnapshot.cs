@@ -31,20 +31,7 @@ namespace Booking.Data.Migrations
                     b.Property<string>("AdvantageType")
                         .HasColumnType("text");
 
-                    b.Property<Guid?>("RoomEntityId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid?>("RoomEntityId1")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("RoomId")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("RoomEntityId");
-
-                    b.HasIndex("RoomEntityId1");
 
                     b.ToTable("Advantages");
                 });
@@ -82,6 +69,23 @@ namespace Booking.Data.Migrations
                     b.ToTable("Countries");
                 });
 
+            modelBuilder.Entity("Booking.Data.Entities.AdvantageNavigationEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("AdvantageId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("RoomId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdvantageNavigations");
+                });
+
             modelBuilder.Entity("Booking.Data.HotelEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -113,11 +117,11 @@ namespace Booking.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("HotelEntityId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid>("HotelId")
                         .HasColumnType("uuid");
+
+                    b.Property<int>("NumberOfPerson")
+                        .HasColumnType("integer");
 
                     b.Property<int>("Price")
                         .HasColumnType("integer");
@@ -133,20 +137,9 @@ namespace Booking.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HotelEntityId");
+                    b.HasIndex("HotelId");
 
                     b.ToTable("Rooms");
-                });
-
-            modelBuilder.Entity("Booking.Data.AdvantageEntity", b =>
-                {
-                    b.HasOne("Booking.Data.RoomEntity", null)
-                        .WithMany("AdvantageId")
-                        .HasForeignKey("RoomEntityId");
-
-                    b.HasOne("Booking.Data.RoomEntity", null)
-                        .WithMany("Advantages")
-                        .HasForeignKey("RoomEntityId1");
                 });
 
             modelBuilder.Entity("Booking.Data.CityEntity", b =>
@@ -173,9 +166,13 @@ namespace Booking.Data.Migrations
 
             modelBuilder.Entity("Booking.Data.RoomEntity", b =>
                 {
-                    b.HasOne("Booking.Data.HotelEntity", null)
+                    b.HasOne("Booking.Data.HotelEntity", "Hotel")
                         .WithMany("Rooms")
-                        .HasForeignKey("HotelEntityId");
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
                 });
 
             modelBuilder.Entity("Booking.Data.CityEntity", b =>
@@ -191,13 +188,6 @@ namespace Booking.Data.Migrations
             modelBuilder.Entity("Booking.Data.HotelEntity", b =>
                 {
                     b.Navigation("Rooms");
-                });
-
-            modelBuilder.Entity("Booking.Data.RoomEntity", b =>
-                {
-                    b.Navigation("AdvantageId");
-
-                    b.Navigation("Advantages");
                 });
 #pragma warning restore 612, 618
         }

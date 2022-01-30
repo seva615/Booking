@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Booking.Data.DataInterfaces;
 
 
 namespace Booking.Data
 {
-    public class HotelEntity
+    public class HotelEntity : IEntity
     {
         public Guid Id { get; set; }
 
@@ -19,7 +20,6 @@ namespace Booking.Data
         public Guid CityId { get; set; }
 
         public CityEntity City { get; set; }
-
         public IEnumerable<RoomEntity> Rooms { get; set; }       
     }
 }

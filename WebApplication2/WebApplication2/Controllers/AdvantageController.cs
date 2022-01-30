@@ -21,43 +21,43 @@ namespace Booking.API
 
         [HttpGet]
         [Route("getAdvantages")]
-        public IEnumerable<AdvantageViewModel> GetAdvantages()
+        public async Task<IEnumerable<AdvantageViewModel>> GetAdvantages()
         {
-            var AdvantageModels = _advantageService.GetAdvantages();
+            var AdvantageModels = await _advantageService.GetAdvantages();
             var AdvantageViewModels = _mapper.Map<IEnumerable<AdvantageViewModel>>(AdvantageModels);
             return AdvantageViewModels;
         }
 
         [HttpGet]
         [Route("getAdvantage")]
-        public AdvantageViewModel GetAdvantage(Guid id)
+        public async Task<AdvantageViewModel> GetAdvantage(Guid id)
         {
-            var AdvantageModel = _advantageService.GetAdvantage(id);
+            var AdvantageModel = await _advantageService.GetAdvantage(id);
             var AdvantageViewModel = _mapper.Map<AdvantageModel, AdvantageViewModel>(AdvantageModel);
             return AdvantageViewModel;
         }
 
         [HttpPost]
         [Route("addAdvantage")]
-        public void AddAdvantage(CreateAdvantageViewModel advantage)
+        public async Task AddAdvantage(CreateAdvantageViewModel advantage)
         {
             var AdvantageModel = _mapper.Map<CreateAdvantageViewModel, AdvantageModel>(advantage);
-            _advantageService.AddAdvantage(AdvantageModel);
+            await _advantageService.AddAdvantage(AdvantageModel);
         }
 
         [HttpPut]
         [Route("editAdvantage")]
-        public void EditAdvantage(AdvantageViewModel advantage)
+        public async Task EditAdvantage(AdvantageViewModel advantage)
         {
             var AdvantageModel = _mapper.Map<AdvantageViewModel, AdvantageModel>(advantage);
-            _advantageService.EditAdvantage(AdvantageModel);
+            await _advantageService.EditAdvantage(AdvantageModel);
         }
 
         [HttpDelete]
         [Route("deleteAdvantage")]
-        public void DeleteAdvantage(Guid id)
+        public async Task DeleteAdvantage(Guid id)
         {
-            _advantageService.DeleteAdvantage(id);
+            await _advantageService.DeleteAdvantage(id);
         }
     }
 }

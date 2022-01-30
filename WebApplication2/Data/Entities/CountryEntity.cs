@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Booking.Data.DataInterfaces;
 
 namespace Booking.Data
 {        
-    public class CountryEntity
+    public class CountryEntity : IEntity
     {
         public Guid Id { get; set; }
 

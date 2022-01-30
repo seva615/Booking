@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Booking.Services;
 using Booking.Data;
 using AutoMapper;
+using Booking.Data.Entities;
 
 namespace Booking.API
 {
@@ -42,6 +43,12 @@ namespace Booking.API
             CreateMap<RoomModel, CreateRoomViewModel>();
             CreateMap<CreateAdvantageViewModel, AdvantageModel>();
             CreateMap<AdvantageModel, CreateAdvantageViewModel>();
+            CreateMap<AdvantageNavigationViewModel, AdvantageNavigationModel>();
+            CreateMap<AdvantageNavigationModel, AdvantageNavigationViewModel>();
+            CreateMap<AdvantageNavigationModel, AdvantageNavigationEntity>();
+            CreateMap<AdvantageNavigationEntity, AdvantageNavigationModel>();
+            CreateMap<CreateAdvantageNavigationViewModel, AdvantageNavigationModel>();
+            CreateMap<AdvantageNavigationModel, CreateAdvantageNavigationViewModel>();
         }         
     }
 }

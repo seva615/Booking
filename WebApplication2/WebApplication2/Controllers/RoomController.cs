@@ -23,43 +23,43 @@ namespace Booking.API
 
         [HttpGet]
         [Route("getRooms")]
-        public IEnumerable<RoomViewModel> GetRooms()
+        public async Task<IEnumerable<RoomViewModel>> GetRooms()
         {
-            var RoomModels = _roomService.GetRooms();
+            var RoomModels = await _roomService.GetRooms();
             var RoomViewModels = _mapper.Map<IEnumerable<RoomViewModel>>(RoomModels);
             return RoomViewModels;
         }
 
         [HttpGet]
         [Route("getRoom")]
-        public RoomViewModel GetRoom(Guid id)
+        public async Task<RoomViewModel> GetRoom(Guid id)
         {
-            var RoomModel = _roomService.GetRoom(id);
+            var RoomModel = await _roomService.GetRoom(id);
             var RoomViewModel = _mapper.Map<RoomModel, RoomViewModel>(RoomModel);
             return RoomViewModel;
         }
 
         [HttpPost]
         [Route("addRoom")]
-        public void AddRoom(CreateRoomViewModel room)
+        public async Task AddRoom(CreateRoomViewModel room)
         {
             var RoomModel = _mapper.Map<CreateRoomViewModel, RoomModel>(room);
-            _roomService.AddRoom(RoomModel);
+            await _roomService.AddRoom(RoomModel);
         }
 
         [HttpPut]
         [Route("editRoom")]
-        public void EditRoom(RoomViewModel room)
+        public async Task EditRoom(RoomViewModel room)
         {
             var RoomModel = _mapper.Map<RoomViewModel, RoomModel>(room);
-            _roomService.EditRoom(RoomModel);
+            await _roomService.EditRoom(RoomModel);
         }
 
         [HttpDelete]
         [Route("deleteRoom")]
-        public void DeleteRoom(Guid id)
+        public async Task DeleteRoom(Guid id)
         {
-            _roomService.DeleteRoom(id);
+            await _roomService.DeleteRoom(id);
         }
     }
 }

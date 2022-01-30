@@ -4,16 +4,8 @@ using System.Text;
 
 namespace Booking.Data
 {
-    public interface IHotelRepository
+    public interface IHotelRepository : IGenericRepository<HotelEntity>
     {
-        public void DeleteHotelEntity(Guid id);
-
-        public void AddHotelEntity(HotelEntity hotel);
-
-        public void EditHotelEntity(HotelEntity hotel);
-
-        public HotelEntity GetHotelEntity(Guid id);
-
-        public IEnumerable<HotelEntity> GetHotelEntities();
+      
     }
 }

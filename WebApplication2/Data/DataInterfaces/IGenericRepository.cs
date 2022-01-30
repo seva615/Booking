@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Booking.Data
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        void Add(TEntity item);
-        TEntity GetById(int id);
-        IEnumerable<TEntity> GetAll();
-        void Delete(TEntity item);
-        void Edit(TEntity item);
+        Task Add(TEntity item);
+        Task<TEntity> GetById(Guid id);
+        Task<TEntity> GetByName(string name);
+        Task<IEnumerable<TEntity>> GetAll();
+        Task Delete(Guid id);
+        Task Edit(TEntity item);
     }
 }

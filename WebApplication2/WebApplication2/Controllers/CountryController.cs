@@ -24,43 +24,43 @@ namespace Booking.API
 
         [HttpGet]
         [Route("getCountries")]
-        public IEnumerable<CountryViewModel> GetContries()
+        public async Task<IEnumerable<CountryViewModel>> GetContries()
         {
-            var CountryModels = _countryService.GetCountries();
+            var CountryModels = await _countryService.GetCountries();
             var CountryViewModels = _mapper.Map<IEnumerable<CountryViewModel>>(CountryModels);
             return CountryViewModels;
         }
 
         [HttpGet]
         [Route("getCountry")]
-        public CountryViewModel GetCountry(Guid id)
+        public async Task<CountryViewModel> GetCountry(Guid id)
         {
-            var CountryModel = _countryService.GetCountry(id);
+            var CountryModel = await _countryService.GetCountry(id);
             var CountryViewModel = _mapper.Map<CountryModel, CountryViewModel>(CountryModel);
             return CountryViewModel;
         }
 
         [HttpPost]
         [Route("addCountry")]
-        public void AddCountry(CreateCountryViewModel country)
+        public async Task AddCountry(CreateCountryViewModel country)
         {
             var CountryModel = _mapper.Map<CreateCountryViewModel, CountryModel>(country);
-            _countryService.AddCountry(CountryModel);
+            await _countryService.AddCountry(CountryModel);
         }
 
         [HttpPut]
         [Route("editCountry")]
-        public void EditCountry(CountryViewModel country)
+        public async Task EditCountry(CountryViewModel country)
         {
             var CountryModel = _mapper.Map<CountryViewModel, CountryModel>(country);
-            _countryService.EditCountry(CountryModel);
+            await _countryService.EditCountry(CountryModel);
         }
 
         [HttpDelete]
         [Route("deleteCountry")]
-        public void DeleteCountry(Guid id)
+        public async Task DeleteCountry(Guid id)
         {
-            _countryService.DeleteCountry(id);
+            await _countryService.DeleteCountry(id);
         }
     }
 }

@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Booking.Services
 {
     public interface IRoomService
     {
-        public void DeleteRoom(Guid id);
+        public Task DeleteRoom(Guid id);
 
-        public void AddRoom(RoomModel room);
+        public Task AddRoom(RoomModel room);
 
-        public RoomModel GetRoom(Guid id);
+        public Task<RoomModel> GetRoom(Guid id);
 
-        public void EditRoom(RoomModel room);
+        public Task EditRoom(RoomModel room);
 
-        public IEnumerable<RoomModel> GetRooms();
+        public Task<IEnumerable<RoomModel>> GetRooms();
     }
 }

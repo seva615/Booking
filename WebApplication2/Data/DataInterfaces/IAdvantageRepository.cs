@@ -4,16 +4,8 @@ using System.Text;
 
 namespace Booking.Data
 {
-   public interface IAdvantageRepository
+   public interface IAdvantageRepository : IGenericRepository<AdvantageEntity>
     {
-        public void DeleteAdvantageEntity(Guid id);
-
-        public void AddAdvantageEntity(AdvantageEntity advantage);
-
-        public void EditAdvantageEntity(AdvantageEntity advantage);
-
-        public AdvantageEntity GetAdvantageEntity(Guid id);
-
-        public IEnumerable<AdvantageEntity> GetAdvantageEntities();
+        
     }
 }
